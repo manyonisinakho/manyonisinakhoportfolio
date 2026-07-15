@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sinakho Manyoni — Data Analytics</title>
+<meta name="description" content="Portfolio of Sinakho Manyoni, data analytics professional based in Johannesburg.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12181f;
+    --panel:#1b232d;
+    --panel-2:#232d38;
+    --line:rgba(237,238,240,0.10);
+    --text:#edeef0;
+    --text-dim:#9aa5b1;
+    --amber:#e8a33d;
+    --teal:#4fb4a8;
+    --radius:3px;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--amber); color:var(--ink);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--amber);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(18,24,31,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600; font-size:15px; letter-spacing:0.02em;
+  }
+  .nav-links{display:flex; gap:24px; list-style:none; margin:0; padding:0;}
+  .nav-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; text-decoration:none; color:var(--text-dim);
+    letter-spacing:0.03em; transition:color 0.15s ease;
+  }
+  .nav-links a:hover{color:var(--amber);}
+  @media (max-width:640px){ .nav-links{gap:14px;} .nav-links li:nth-child(3){display:none;} }
+
+  /* CELL / EYEBROW LABEL */
+  .cell{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; color:var(--teal);
+    letter-spacing:0.06em; margin-bottom:18px;
+  }
+  .cell::before{
+    content:'';
+    width:7px; height:7px;
+    background:var(--teal);
+    display:inline-block;
+    border-radius:1px;
+  }
+
+  /* HERO */
+  .hero{padding:96px 0 64px;}
+  .formula-bar{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--text-dim);
+    border:1px solid var(--line);
+    background:var(--panel);
+    border-radius:var(--radius);
+    padding:9px 14px;
+    margin-bottom:36px;
+    display:flex; gap:10px; align-items:center;
+    overflow-x:auto; white-space:nowrap;
+  }
+  .formula-bar .fx{color:var(--amber); font-weight:500;}
+  .formula-bar .out{color:var(--text);}
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(34px, 6vw, 58px);
+    line-height:1.08;
+    margin:0 0 22px;
+    letter-spacing:-0.01em;
+  }
+  h1 .accent{color:var(--amber);}
+  .lede{
+    font-size:17px; color:var(--text-dim);
+    max-width:60ch; margin:0 0 34px;
+  }
+  .hero-meta{
+    display:flex; flex-wrap:wrap; gap:22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px; color:var(--text-dim);
+  }
+  .hero-meta a{text-decoration:none; border-bottom:1px solid transparent; transition:border-color 0.15s ease, color 0.15s ease;}
+  .hero-meta a:hover{color:var(--amber); border-color:var(--amber);}
+
+  /* SECTIONS */
+  section{padding:64px 0; border-top:1px solid var(--line);}
+  h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:26px; font-weight:600;
+    margin:0 0 28px;
+  }
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ABOUT */
+  .about-text{max-width:66ch; color:var(--text-dim); font-size:16px;}
+  .about-text strong{color:var(--text); font-weight:500;}
+
+  /* EXPERIENCE */
+  .job{
+    display:grid; grid-template-columns:180px 1fr; gap:24px;
+    padding:26px 0; border-bottom:1px solid var(--line);
+  }
+  .job:last-child{border-bottom:none;}
+  .job-meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-dim);}
+  .job-meta .badge{
+    display:inline-block; margin-top:8px;
+    font-size:10.5px; color:var(--teal);
+    border:1px solid rgba(79,180,168,0.35);
+    padding:2px 7px; border-radius:20px;
+  }
+  .job-title{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:600; margin:0 0 3px;}
+  .job-org{color:var(--text-dim); font-size:14px; margin:0 0 14px;}
+  .job ul{margin:0; padding-left:18px; color:var(--text-dim); font-size:14.5px;}
+  .job li{margin-bottom:7px;}
+  @media (max-width:640px){ .job{grid-template-columns:1fr; gap:8px;} }
+
+  /* SKILLS */
+  .skill-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  @media (max-width:720px){ .skill-grid{grid-template-columns:1fr;} }
+  .skill-panel{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px;
+  }
+  .skill-panel h3{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px;
+    color:var(--amber); letter-spacing:0.05em; margin:0 0 14px;
+    text-transform:uppercase;
+  }
+  .skill-panel ul{list-style:none; margin:0; padding:0;}
+  .skill-panel li{
+    font-size:14px; color:var(--text-dim);
+    padding:6px 0; border-top:1px solid var(--line);
+  }
+  .skill-panel li:first-child{border-top:none;}
+
+  /* EDUCATION */
+  .edu-item{padding:20px 0; border-bottom:1px solid var(--line); display:grid; grid-template-columns:150px 1fr; gap:20px;}
+  .edu-item:last-child{border-bottom:none;}
+  .edu-date{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-dim);}
+  .edu-item h3{font-family:'Space Grotesk', sans-serif; font-size:16px; margin:0 0 4px;}
+  .edu-item p{margin:0; color:var(--text-dim); font-size:13.5px;}
+  @media (max-width:640px){ .edu-item{grid-template-columns:1fr; gap:6px;} }
+
+  /* CERTS */
+  .cert-list{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
+  .cert-list li{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:14px 16px; background:var(--panel);
+    border:1px solid var(--line); border-radius:var(--radius);
+    font-size:14px;
+  }
+  .cert-list .status{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--teal);
+    white-space:nowrap;
+  }
+
+  /* CONTACT */
+  .contact-panel{
+    background:var(--panel-2); border:1px solid var(--line);
+    border-radius:var(--radius); padding:36px;
+    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:20px;
+  }
+  .contact-panel h2{margin-bottom:8px;}
+  .contact-panel p{color:var(--text-dim); margin:0; max-width:42ch;}
+  .btn{
+    display:inline-block; text-decoration:none;
+    font-family:'IBM Plex Mono', monospace; font-size:13px;
+    color:var(--ink); background:var(--amber);
+    padding:12px 22px; border-radius:var(--radius);
+    font-weight:500; transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{transform:translateY(-2px); box-shadow:0 6px 18px rgba(232,163,61,0.25);}
+
+  footer{
+    padding:28px 0 40px; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-name">SINAKHO MANYONI</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="formula-bar">
+      <span class="fx">fx</span>
+      <span id="formula-text">=SUMMARY(A1)</span>
+      <span class="out" id="formula-out"></span>
+    </div>
+    <div class="cell">A1 · INTRO</div>
+    <h1>Structured thinking,<br>applied to <span class="accent">messy data.</span></h1>
+    <p class="lede">Data analytics professional based in Johannesburg, working across Excel, SQL, and Python to turn field-level data into decisions people can act on — currently building on a Business Intelligence and Information Management background with hands-on analytics work.</p>
+    <div class="hero-meta">
+      <a href="mailto:tonysinakho@gmail.com">tonysinakho@gmail.com</a>
+      <a href="tel:0658950938">065 895 0938</a>
+      <span>Johannesburg, 2091</span>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="cell">B1 · ABOUT</div>
+    <h2 class="reveal">Professional summary</h2>
+    <p class="about-text reveal">
+      <strong>Analytical and adaptable</strong>, with a strong foundation in structured problem-solving, data handling, and stakeholder communication. Experienced working in fast-paced, high-pressure environments that demand accuracy, discipline, and sound judgement. Brings a <strong>systems-thinking mindset</strong>, strong learning agility, and the ability to translate complex information into clear, actionable outcomes across diverse professional contexts.
+    </p>
+  </section>
+
+  <section id="experience">
+    <div class="cell">C1 · EXPERIENCE</div>
+    <h2 class="reveal">Where the work happened</h2>
+
+    <div class="job reveal">
+      <div class="job-meta">
+        2026 — Present
+        <div class="badge">Current</div>
+      </div>
+      <div>
+        <p class="job-title">Data Analytics Intern</p>
+        <p class="job-org">Wild Impact — Johannesburg</p>
+        <ul>
+          <li>Work with Early Childhood Development (ECD) survey data and school lesson-tracking datasets across rural centres.</li>
+          <li>Verify field survey data against master datasets using INDEX/MATCH in Excel and pandas merges in Python.</li>
+          <li>Build formula-based logic to count lessons per school, region, and month, with deduplication rules to avoid double-counting.</li>
+          <li>Develop field training scenarios for a meal-tracking data collection tool used at rural ECD centres.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="job reveal">
+      <div class="job-meta">06/2025 — 02/2026</div>
+      <div>
+        <p class="job-title">Technical Support Consultant</p>
+        <p class="job-org">Startek — Telkom Campaign, Johannesburg</p>
+        <ul>
+          <li>Resolved complex technical queries related to Fibre, WiFi, DSL, and email services in a high-volume call centre environment.</li>
+          <li>Diagnosed connectivity and configuration issues using structured troubleshooting methodologies.</li>
+          <li>Logged, tracked, and escalated cases accurately, ensuring data integrity and improved turnaround times.</li>
+          <li>Applied analytical thinking to identify recurring issues and support process efficiency.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="cell">D1 · SKILLS</div>
+    <h2 class="reveal">Toolkit</h2>
+    <div class="skill-grid reveal">
+      <div class="skill-panel">
+        <h3>Data &amp; Analysis</h3>
+        <ul>
+          <li>Excel (analysis &amp; reporting)</li>
+          <li>Python &amp; pandas</li>
+          <li>SQL fundamentals</li>
+          <li>Power BI basics</li>
+          <li>Qualitative &amp; quantitative analysis</li>
+        </ul>
+      </div>
+      <div class="skill-panel">
+        <h3>Tools &amp; Platforms</h3>
+        <ul>
+          <li>Microsoft Excel, PowerPoint, Word</li>
+          <li>Microsoft Access</li>
+          <li>Database basics</li>
+          <li>CRM &amp; admin coordination</li>
+        </ul>
+      </div>
+      <div class="skill-panel">
+        <h3>Professional</h3>
+        <ul>
+          <li>Verbal &amp; written communication</li>
+          <li>Organisation &amp; time management</li>
+          <li>Attentive to detail</li>
+          <li>Technical troubleshooting</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="cell">E1 · CERTIFICATIONS</div>
+    <h2 class="reveal">Certifications &amp; learning</h2>
+    <ul class="cert-list reveal">
+      <li><span>Microsoft DP-700 — Fabric Data Engineer Associate</span><span class="status">In progress · Aug 2026</span></li>
+      <li><span>Data Analysis with Python — freeCodeCamp</span><span class="status">In progress</span></li>
+      <li><span>Google Data Analytics Certificate — self-study (SQL, Power BI, Business Analysis)</span><span class="status">Ongoing</span></li>
+      <li><span>AI &amp; Fourth Industrial Revolution (AI4IR) discussions &amp; webinars</span><span class="status">Active</span></li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <div class="cell">F1 · EDUCATION</div>
+    <h2 class="reveal">Education</h2>
+
+    <div class="edu-item reveal">
+      <div class="edu-date">01/2025 — 11/2025</div>
+      <div>
+        <h3>Bachelor of Commerce Honours in Information Management</h3>
+        <p>University of Johannesburg — Business Intelligence, Management Information Systems, Strategic Information Management, Web &amp; Intranet Management</p>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-date">01/2021 — 12/2024</div>
+      <div>
+        <h3>Bachelor of Commerce in Information Management</h3>
+        <p>University of Johannesburg — Information Management, Business Management, Search Engine Optimisation, Knowledge at Risk</p>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-date">Completed 12/2020</div>
+      <div>
+        <h3>Matric Certificate</h3>
+        <p>Balmoral College — IsiZulu Home Language, English First Additional Language, Tourism, Mathematical Literacy, History, Geography, Life Orientation</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="cell">G1 · CONTACT</div>
+    <div class="contact-panel reveal">
+      <div>
+        <h2>Let's work with the data.</h2>
+        <p>Open to data analytics and data engineering opportunities in Johannesburg and remote.</p>
+      </div>
+      <a class="btn" href="mailto:tonysinakho@gmail.com">Email tonysinakho@gmail.com</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>© 2026 Sinakho Manyoni · Built with structured data in mind.</footer>
+
+<script>
+  // Formula bar cycling — small nod to the spreadsheet motif
+  (function(){
+    var el = document.getElementById('formula-text');
+    var out = document.getElementById('formula-out');
+    var formulas = [
+      { f: '=SUMMARY(A1)', o: '"Analyst, systems-thinker, detail-driven."' },
+      { f: '=VLOOKUP("skills", D1:D20)', o: 'Excel · SQL · Python · Power BI' },
+      { f: '=IF(location="Johannesburg", TRUE, TRUE)', o: 'TRUE' },
+      { f: '=COUNTA(certifications)', o: '4, and counting' }
+    ];
+    var i = 0;
+    out.textContent = formulas[0].o;
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(function(){
+        i = (i + 1) % formulas.length;
+        el.textContent = formulas[i].f;
+        out.textContent = formulas[i].o;
+      }, 3800);
+    }
+  })();
+
+  // Scroll reveal
+  (function(){
+    var items = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(function(el){ el.classList.add('in'); });
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function(el){ obs.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
